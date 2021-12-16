@@ -12,8 +12,8 @@ import (
 
 const GETURL = "http://dnslog.cn/getdomain.php"
 const FETCHURL = "http://dnslog.cn/getrecords.php"
-const HEADPATH = "headers.txt"
-const PARAMSPATH = "params.txt"
+const HEADPATH = "data/headers.txt"
+const PARAMSPATH = "data/params.txt"
 
 
 func ReadHeader(path string) ([]string, error) {
