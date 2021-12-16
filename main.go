@@ -32,11 +32,11 @@ func ReadHeader(path string) ([]string, error) {
 }
 
 func ReadPayload()  {
-
+	// TODO -Soon
 }
 
 func ReadPostReq()  {
-
+	// TODO -Soon
 }
 
 func PayloadGetHttp(url string, head string ,payload string) http.Header {
