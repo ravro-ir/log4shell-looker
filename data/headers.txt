@@ -1,0 +1,5 @@
+User-Agent
+Referer
+X-Forwarded-For
+Authentication
+X-Api-Version
