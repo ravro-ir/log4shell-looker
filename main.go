@@ -31,12 +31,16 @@ func ReadHeader(path string) ([]string, error) {
 	return lines, scanner.Err()
 }
 
-func ReadPayload()  {
-	// TODO -Soon
+func ReadPayloadBypassWAF()  {
+	// TODO - Soon
 }
 
 func ReadPostReq()  {
-	// TODO -Soon
+	// TODO - Soon
+}
+
+func PostHttp()  {
+	// TODO - Soon
 }
 
 func PayloadGetHttp(url string, head string ,payload string) http.Header {
@@ -98,9 +102,6 @@ func GetHttp(url string, session string) (string) {
 	return bodyStr
 }
 
-func PostHttp()  {
-
-}
 
 func main()  {
 
@@ -118,7 +119,6 @@ func main()  {
 		log.Fatalf("readLines: %s", err)
 	}
 	for i, header := range headers {
-		//fmt.Println(i, line)
 		// TODO - check is not null
 		fmt.Println("[+++] Your domain generated : " , domain)
 		fmt.Println("[+++] Your session is : ", session)
@@ -141,9 +141,5 @@ func main()  {
 			fmt.Println("[***] Is Vulnerability to CVE-2021-44228 - [critical]")
 			os.Exit(0)
 		}
-
-
 	}
-
-
 }
