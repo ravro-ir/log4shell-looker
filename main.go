@@ -116,7 +116,8 @@ func main()  {
 	domain, session :=  GetHttpWithoutSession(GETURL)
 	headers, err := ReadHeader(HEADPATH)
 	if err != nil {
-		log.Fatalf("readLines: %s", err)
+		log.Fatalf("Error to read file : %s", err)
+		os.Exit(0)
 	}
 	for i, header := range headers {
 		// TODO - check is not null
