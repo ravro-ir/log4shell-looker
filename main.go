@@ -44,7 +44,6 @@ func PostHttp()  {
 	// TODO - Soon
 }
 
-
 func PayloadGetHttpUrl(url string) {
 	client := http.Client{}
 	req , err := http.NewRequest("GET", url, nil)
@@ -223,21 +222,10 @@ func UserAgentScan(domain string, session string, url string)  {
 
 func main()  {
 
-	//var url string
 	url := flag.String("url", "url", "a string")
-	mode := flag.String("mode", "[urlpath, header, useragent]", "a string")
-
+	mode := flag.String("mode", "[urlpath, header, useragent]", "please usage mode")
 	flag.Parse()
-
-
-	//progArg := os.Args
-
-	//if len(progArg) >= 3 {
-	//	fmt.Println("Usage : main.go url")
-	//	os.Exit(0)
-	//}
 	domain, session :=  GetHttpWithoutSession(GETURL)
-	// TODO - check is not null
 	if *mode == "urlpath" {
 		UrlsScan(domain, session, *url)
 	}
