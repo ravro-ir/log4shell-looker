@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	flag "flag"
 	"fmt"
 	"io"
 	"log"
@@ -222,17 +223,28 @@ func UserAgentScan(domain string, session string, url string)  {
 
 func main()  {
 
-	var url string
-	progArg := os.Args
+	//var url string
+	url := flag.String("url", "url", "a string")
+	mode := flag.String("mode", "[urlpath, header, useragent]", "a string")
 
-	if len(progArg) >= 3 {
-		fmt.Println("Usage : main.go url")
-		os.Exit(0)
-	}
-	url = progArg[1]
+	flag.Parse()
+
+
+	//progArg := os.Args
+
+	//if len(progArg) >= 3 {
+	//	fmt.Println("Usage : main.go url")
+	//	os.Exit(0)
+	//}
 	domain, session :=  GetHttpWithoutSession(GETURL)
 	// TODO - check is not null
-	//HeaderScan(domain, session, url)
-	//UrlsScan(domain, session, url)
-	UserAgentScan(domain, session, url)
+	if *mode == "urlpath" {
+		UrlsScan(domain, session, *url)
+	}
+	if *mode == "header" {
+		HeaderScan(domain, session, *url)
+	}
+	if *mode == "useragent" {
+		UserAgentScan(domain, session, *url)
+	}
 }

