@@ -5,9 +5,10 @@
 $ go run main.go --help
 Usage of main:
   -mode string
-        a string (default "[urlpath, header, useragent]")
+        please usage mode [urlpath, header, useragent] (default "[urlpath, header, useragent]")
   -url string
-        a string (default "url")
+        please enter you url for scan (default "url")
+
 
 $ go run main.go -mode=useragent -url=http://127.0.0.1:8080
 [+++] Your domain generated :  rfcbd0.dnslog.cn

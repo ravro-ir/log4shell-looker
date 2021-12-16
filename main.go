@@ -222,8 +222,8 @@ func UserAgentScan(domain string, session string, url string)  {
 
 func main()  {
 
-	url := flag.String("url", "url", "a string")
-	mode := flag.String("mode", "[urlpath, header, useragent]", "please usage mode")
+	url := flag.String("url", "url", "please enter you url for scan")
+	mode := flag.String("mode", "[urlpath, header, useragent]", "please usage mode [urlpath, header, useragent]")
 	flag.Parse()
 	domain, session :=  GetHttpWithoutSession(GETURL)
 	if *mode == "urlpath" {
