@@ -6,7 +6,9 @@ This is a simple tool that can be used to find vulnerable instances of
 log4j 1.x and 2.x (CVE-2021-44228) in installations of
 Java software such as web applications.
 
-The scan tool currently checks for discover log4shell vulnerability, current feature of tools:  `Cookies` and `Content-Type` and `URL Path`, `User-Agent`
+The scan tool currently checks for discover log4shell vulnerability.<br /> 
+Current feature of tools: 
+`Cookies`, `Content-Type`, `URL Path`, `User-Agent`, `Headers`
 
 
 # Using the scanner
