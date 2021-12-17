@@ -1,4 +1,4 @@
-#  log4shell-looker a log4jshell vulnerability scanner for bug bounty
+###  log4shell-looker a log4jshell vulnerability scanner for bug bounty
 
 (Written in Go because, you know, "write once, run anywhere.")
 
