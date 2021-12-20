@@ -4,11 +4,11 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+	"io/ioutil"
 )
 
 const GETURL = "http://dnslog.cn/getdomain.php"
@@ -81,7 +81,7 @@ func PayloadGetHttpCookies(url string, name string ,payload string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
-	body, err := io.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("We have a error : ", err)
 		return ""
@@ -103,7 +103,7 @@ func GetHttpWithoutSession(url string) (string, string) {
 		fmt.Println("We have a error : ", err)
 		return "", ""
 	}
-	body, err := io.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	bodyStr := string(body)
 	split := strings.Split(res.Header.Get("Set-Cookie"), "=")
 	session := strings.Replace(split[1], "; path", "", 1)
@@ -124,7 +124,7 @@ func GetHttp(url string, session string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
-	body, err := io.ReadAll(res.Body)
+	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println("We have a error : ", err)
 		return ""
