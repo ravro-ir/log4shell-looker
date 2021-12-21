@@ -139,7 +139,6 @@ func GetHttp(url string, session string) string {
 		return ""
 	}
 	version := runtime.Version()
-	version = "go1.15"
 	if version >= "go1.16" {
 		body, err = ioutil.ReadAll(res.Body)
 	} else {
