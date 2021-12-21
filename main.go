@@ -4,10 +4,11 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -68,6 +69,7 @@ func PayloadGetHttp(url string, head string ,payload string) http.Header {
 }
 
 func PayloadGetHttpCookies(url string, name string ,payload string) string {
+	var body []byte
 	client := http.Client{}
 	req , err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -81,7 +83,12 @@ func PayloadGetHttpCookies(url string, name string ,payload string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
-	body, err := io.ReadAll(res.Body)
+	version := runtime.Version()
+	if version >= "go1.16" {
+		body, err = ioutil.ReadAll(res.Body)
+	} else {
+		body, err = ioutil.ReadAll(res.Body)
+	}
 	if err != nil {
 		fmt.Println("We have a error : ", err)
 		return ""
@@ -91,7 +98,7 @@ func PayloadGetHttpCookies(url string, name string ,payload string) string {
 }
 
 func GetHttpWithoutSession(url string) (string, string) {
-
+	var body []byte
 	client := http.Client{}
 	req , err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -103,7 +110,12 @@ func GetHttpWithoutSession(url string) (string, string) {
 		fmt.Println("We have a error : ", err)
 		return "", ""
 	}
-	body, err := io.ReadAll(res.Body)
+	version := runtime.Version()
+	if version >= "go1.16" {
+		body, err = ioutil.ReadAll(res.Body)
+	} else {
+		body, err = ioutil.ReadAll(res.Body)
+	}
 	bodyStr := string(body)
 	split := strings.Split(res.Header.Get("Set-Cookie"), "=")
 	session := strings.Replace(split[1], "; path", "", 1)
@@ -111,7 +123,7 @@ func GetHttpWithoutSession(url string) (string, string) {
 }
 
 func GetHttp(url string, session string) string {
-
+	var body []byte
 	client := http.Client{}
 	req , err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -124,7 +136,13 @@ func GetHttp(url string, session string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
-	body, err := io.ReadAll(res.Body)
+	version := runtime.Version()
+	version = "go1.15"
+	if version >= "go1.16" {
+		body, err = ioutil.ReadAll(res.Body)
+	} else {
+		body, err = ioutil.ReadAll(res.Body)
+	}
 	if err != nil {
 		fmt.Println("We have a error : ", err)
 		return ""
