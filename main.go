@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -87,7 +88,7 @@ func PayloadGetHttpCookies(url string, name string ,payload string) string {
 	if version >= "go1.16" {
 		body, err = ioutil.ReadAll(res.Body)
 	} else {
-		body, err = ioutil.ReadAll(res.Body)
+		body, err = io.ReadAll(res.Body)
 	}
 	if err != nil {
 		fmt.Println("We have a error : ", err)
@@ -114,7 +115,7 @@ func GetHttpWithoutSession(url string) (string, string) {
 	if version >= "go1.16" {
 		body, err = ioutil.ReadAll(res.Body)
 	} else {
-		body, err = ioutil.ReadAll(res.Body)
+		body, err = io.ReadAll(res.Body)
 	}
 
 	bodyStr := string(body)
@@ -142,7 +143,7 @@ func GetHttp(url string, session string) string {
 	if version >= "go1.16" {
 		body, err = ioutil.ReadAll(res.Body)
 	} else {
-		body, err = ioutil.ReadAll(res.Body)
+		body, err = io.ReadAll(res.Body)
 	}
 	if err != nil {
 		fmt.Println("We have a error : ", err)
