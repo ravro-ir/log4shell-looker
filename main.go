@@ -137,7 +137,6 @@ func GetHttp(url string, session string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
-<<<<<<< HEAD
 	version := runtime.Version()
 	version = "go1.15"
 	if version >= "go1.16" {
