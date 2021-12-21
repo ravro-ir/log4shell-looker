@@ -116,6 +116,7 @@ func GetHttpWithoutSession(url string) (string, string) {
 	} else {
 		body, err = ioutil.ReadAll(res.Body)
 	}
+
 	bodyStr := string(body)
 	split := strings.Split(res.Header.Get("Set-Cookie"), "=")
 	session := strings.Replace(split[1], "; path", "", 1)
@@ -136,6 +137,7 @@ func GetHttp(url string, session string) string {
 		fmt.Println("We have a error : ", err)
 		return ""
 	}
+<<<<<<< HEAD
 	version := runtime.Version()
 	version = "go1.15"
 	if version >= "go1.16" {
